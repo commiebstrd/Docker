@@ -1,0 +1,1 @@
+Docker files I've created for testing of software and longterm containers prior to individual repos.
