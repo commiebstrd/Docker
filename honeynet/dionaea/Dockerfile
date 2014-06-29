@@ -5,7 +5,8 @@ MAINTAINER Spenser Reinhardt
 
 # updates and prereqs
 RUN apt-get update -y
-RUN apt-get install git build-essential -y
-#clone and move to dir
 
-#setup and test
+#copy and build
+COPY ./install.sh ./install.sh
+RUN chmod +x ./install.sh
+RUN ./install.sh
