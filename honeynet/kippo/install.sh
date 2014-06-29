@@ -20,10 +20,11 @@ sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt trusty-security main restr
 echo "Installing prereqs" | tee -a $logfile
 
 apt-get update -y 2>&1 | tee -a $logfile
+apt-get install git wget python-twisted -y 2>&1 | tee -a $logfile
 
-#Build here
-
-
+#install kippo
+cd /opt/
+git clone https://github.com/desaster/kippo.git kippo
 
 #Finished
 echo "Finished build correctly - Enjoy!" | tee -a $logfile

@@ -13,9 +13,9 @@ RUN chmod +x ./install.sh
 RUN ./install.sh
 
 #cleanup
-RUN mv /install.log /opt/[project]/install.log
+RUN mv /install.log /opt/kippo/install.log
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /install.sh
 
-EXPOSE 80 443
-WORKDIR /opt/[project]
-#CMD ["binary-to-start"]
+EXPOSE 2222
+WORKDIR /opt/kippo
+CMD ["./start.sh"]
