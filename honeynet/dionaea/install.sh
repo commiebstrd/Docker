@@ -4,7 +4,7 @@
 #Version:	v0.1
 #License:	GPLv2
 
-logile="$HOME/install.log"
+logfile=$(echo $HOME"install.log")
 
 #install deps
 apt-get install libudns-dev libglib2.0-dev libssl-dev libcurl4-openssl-dev \
@@ -12,7 +12,8 @@ libreadline-dev libsqlite3-dev python-dev \
 libtool automake autoconf build-essential \
 subversion git-core \
 flex bison \
-pkg-config -y 2>&1 | tee -a $logfile
+pkg-config \
+wget -y 2>&1 | tee -a $logfile
 
 #make build and install dir
 mkdir -p /opt/dionaea
@@ -116,3 +117,5 @@ make install 2>&1 | tee -a $logfile
 
 echo "Done making Dionaea - Enjoy!" | tee -a $logfile
 echo $(date) | tee -a $logfile
+
+mv $logfile /opt/dionaea/install.log
