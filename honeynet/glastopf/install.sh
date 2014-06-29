@@ -10,11 +10,11 @@ echo "Creating new Docker container for Project Glastopf" | tee -a $logfile
 echo $(date) | tee -a $logfile
 
 #apt-get sources
-$cname=$(lsb-release -c)
-sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt $cname main restricted universe multiverse'     /etc/apt/sources.list
-sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt $cname-updates main restricted universe multiverse' /etc/apt/sources.list
-sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt $cname-backports main restricted universe multiverse' /etc/apt/sources.list
-sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt $cname-security main restricted universe multiverse' /etc/apt/sources.list
+#cname=$(lsb-release -c)
+sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt trusty main restricted universe multiverse'     /etc/apt/sources.list
+sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt trusty-updates main restricted universe multiverse' /etc/apt/sources.list
+sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt trusty-backports main restricted universe multiverse' /etc/apt/sources.list
+sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt trusty-security main restricted universe multiverse' /etc/apt/sources.list
 
 #dependencies
 echo "Installing prereqs" | tee -a $logfile
@@ -37,7 +37,9 @@ phpize 2>&1 | tee -a $logfile
 ./configure --enable-bfr 2>&1 | tee -a $logfile
 make 2>&1 | tee -a $logfile
 make install 2>&1 | tee -a $logfile
-RUN for i in $(find / -type f -name php.ini); do sed -i "/[PHP]/azend_extension=$(find /usr/lib/php5 -type f -name bfr.so)" $i; done
+for i in $(find / -type f -name php.ini); do
+	sed -i "/[PHP]/azend_extension=$(find /usr/lib/php5 -type f -name bfr.so)" $i;
+done
 
 #Clone and build glastopf
 echo "Cloning and building Glastopf" | tee -a $logfile
@@ -53,7 +55,7 @@ echo "Making glastopf environment" | tee -a $loglfile
 cd /opt
 mkdir myhoneypot
 cd myhoneypot
-glastopf-runner 2>&1 | tee -a $logfile
+#glastopf-runner 2>&1 | tee -a $logfile
 
 #Finished
 echo "Finished build correctly - Enjoy!" | tee -a $logfile
