@@ -9,16 +9,23 @@ logfile="$HOME/install.log"
 echo "Creating new Docker container for Project Glastopf" | tee -a $logfile
 echo $(date) | tee -a $logfile
 
+#apt-get sources
+$cname=$(lsb-release -c)
+sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt $cname main restricted universe multiverse'     /etc/apt/sources.list
+sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt $cname-updates main restricted universe multiverse' /etc/apt/sources.list
+sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt $cname-backports main restricted universe multiverse' /etc/apt/sources.list
+sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt $cname-security main restricted universe multiverse' /etc/apt/sources.list
+
 #dependencies
 echo "Installing prereqs" | tee -a $logfile
 
-apt-get update 2>&1 | tee -a $logfile
-apt-get install python2.7 python-openssl python-gevent libevent-dev python2.7-dev build-essential make 2>&1 | tee -a $logfile
-apt-get install python-chardet python-requests python-sqlalchemy python-lxml 2>&1 | tee -a $logfile
-apt-get install python-beautifulsoup mongodb python-pip python-dev python-setuptools 2>&1 | tee -a $logfile
-apt-get install g++ git php5 php5-dev liblapack-dev gfortran libmysqlclient-dev 2>&1 | tee -a $logfile
-apt-get install libxml2-dev libxslt-dev 2>&1 | tee -a $logfile
-pip install --upgrade distribute 2>&1 | tee -a $logfile
+apt-get update -y 2>&1 | tee -a $logfile
+apt-get install python2.7 python-openssl python-gevent libevent-dev python2.7-dev build-essential make -y 2>&1 | tee -a $logfile
+apt-get install python-chardet python-requests python-sqlalchemy python-lxml -y 2>&1 | tee -a $logfile
+apt-get install python-beautifulsoup mongodb python-pip python-dev python-setuptools -y 2>&1 | tee -a $logfile
+apt-get install g++ git php5 php5-dev liblapack-dev gfortran libmysqlclient-dev -y 2>&1 | tee -a $logfile
+apt-get install libxml2-dev libxslt-dev -y 2>&1 | tee -a $logfile
+pip install --upgrade distribute -y 2>&1 | tee -a $logfile
 
 #checout and build latest php sandbox
 echo "Cloning and building PHP sandbox" | tee -a $logfile
@@ -30,9 +37,7 @@ phpize 2>&1 | tee -a $logfile
 ./configure --enable-bfr 2>&1 | tee -a $logfile
 make 2>&1 | tee -a $logfile
 make install 2>&1 | tee -a $logfile
-
-#TODO Sed to replace zend
-#zend_extension = /usr/lib/php5/20090626+lfs/bfr.so
+RUN for i in $(find / -type f -name php.ini); do sed -i "/[PHP]/azend_extension=$(find /usr/lib/php5 -type f -name bfr.so)" $i; done
 
 #Clone and build glastopf
 echo "Cloning and building Glastopf" | tee -a $logfile
