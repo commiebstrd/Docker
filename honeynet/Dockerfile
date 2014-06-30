@@ -4,18 +4,15 @@ FROM ubuntu
 MAINTAINER Spenser Reinhardt
 ENV DEBIAN_FRONTEND noninteractive
 
-# updates and prereqs
-RUN apt-get update -y
-
 #copy and build
 COPY ./install.sh ./install.sh
 RUN chmod +x ./install.sh
 RUN ./install.sh
 
 #cleanup
-RUN mv /install.log /opt/[project]/install.log
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /install.sh
+RUN mv /install.log /opt/[project]/install.log && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /install.sh
 
-EXPOSE 80 443
+#Post-build docker info
+EXPOSE [ports]
 WORKDIR /opt/[project]
 #CMD ["binary-to-start"]

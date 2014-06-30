@@ -4,7 +4,7 @@
 #Release:	v0.1
 #License:	GPLv2
 
-logfile="$HOME/install.log"
+logfile=$(echo $HOME"install.log")
 
 echo "Creating new Docker container for Project .." | tee -a $logfile
 echo $(date) | tee -a $logfile
