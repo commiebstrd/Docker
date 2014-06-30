@@ -20,10 +20,28 @@ sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt trusty-security main restr
 echo "Installing prereqs" | tee -a $logfile
 
 apt-get update -y 2>&1 | tee -a $logfile
+apt-get install subversion git-core -y 2>&1 | tee -a $logfile
 
-#Build here
+#google-v8
+cd /tmp/
+svn checkout http://v8.googlecode.com/svn/trunk/ v8 2>&1 | tee -a $logfile
+svn checkout http://pyv8.googlecode.com/svn/trunk/ pyv8 2>&1 | tee -a $logfile
+cp thug/patches/PyV8-patch1.diff . 2>&1 | tee -a $logfile
+patch -p0 < PyV8-patch1.diff 2>&1 | tee -a $logfile
+export V8_HOME=/tmp/v8
+cd pyv8
+python setup.py build 2>&1 | tee -a $logfile
+python setup.py install 2>&1 | tee -a $logfile
 
+#jsbeautifier
+easy_install jsbeautifier 2>&1 | tee -a $logfile
 
+#rarfile
+easy_install rarfile 2>&1 | tee -a $logfile
+
+#thug
+cd /opt
+git clone https://github.com/buffer/thug.git thug 2>&1 | tee -a $logfile
 
 #Finished
 echo "Finished build correctly - Enjoy!" | tee -a $logfile
