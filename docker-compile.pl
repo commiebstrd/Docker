@@ -107,7 +107,7 @@ print SETUP join("\n", "#!/bin/sh", "set -e -x", @commands), "\ntouch /.data/FIN
 close SETUP;
 chmod 0755, "$tmpdir/setup.sh";
 
-our @run = ('docker', 'run', "-cidfile=$tmpdir/CID", '-v', "$tmpdir:/.data", $from, "/.data/setup.sh");
+our @run = ('docker', 'run', "--cidfile=$tmpdir/CID", '-v', "$tmpdir:/.data", $from, "/.data/setup.sh");
 print "*** ", join(' ', @run), "\n";
 system(@run) == 0 or die;
 
@@ -120,8 +120,8 @@ our $cid = <CID>;
 close CID;
 
 our @commit = ( 'docker', 'commit' );
-push @commit, "-author=$author" if defined $author;
-push @commit, "-run=" . encode_json(\%metadata) if %metadata;
+push @commit, "--author=$author" if defined $author;
+push @commit, "--run=" . encode_json(\%metadata) if %metadata;
 push @commit, $cid;
 print "*** ", join(' ', @commit), "\n";
 exec(@commit);
