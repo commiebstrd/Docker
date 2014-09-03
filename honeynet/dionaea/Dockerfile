@@ -1,5 +1,5 @@
 #start with ubuntu
-FROM ubuntu
+FROM ubuntu:latest
 
 MAINTAINER Spenser Reinhardt
 ENV DEBIAN_FRONTEND noninteractive
