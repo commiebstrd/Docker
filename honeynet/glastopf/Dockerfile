@@ -1,3 +1,4 @@
+#glastopf
 #start with ubuntu
 FROM ubuntu:latest
 
