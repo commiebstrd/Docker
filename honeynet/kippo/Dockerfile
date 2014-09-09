@@ -8,14 +8,16 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update -y
 
 #copy and build
-COPY ./install.sh ./install.sh
-RUN chmod +x ./install.sh
+WORKDIR /tmp/
+ADD install.sh /tmp/install.sh
+RUN chmod +x install.sh
 RUN ./install.sh
 
 #cleanup
-RUN mv /install.log /opt/kippo/install.log
+RUN mv $HOME/install.log /opt/kippo/install.log
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /install.sh
 
+ADD kippo.cfg /opt/kippo/kippo.cfg
 EXPOSE 2222
-WORKDIR /opt/kippo
+WORKDIR /opt/kippo/
 CMD ["./start.sh"]
