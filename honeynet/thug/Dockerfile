@@ -1,3 +1,4 @@
+# Thug web browser honeypot
 #start with ubuntu
 FROM ubuntu:latest
 
@@ -17,6 +18,5 @@ RUN ./install.sh
 RUN mv ./install.log /opt/thug/install.log
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ./install.sh
 
-EXPOSE 80 443
-WORKDIR /opt/[project]
-#CMD ["binary-to-start"]
+WORKDIR /opt/thug/
+CMD ["python", "src/thug.py"]
