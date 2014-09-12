@@ -12,6 +12,7 @@ RUN apt-get update -y
 COPY ./install.sh ./install.sh
 RUN chmod +x ./install.sh
 RUN ./install.sh
+RUN mkdir /opt/conpot/var/
 
 #Add config
 ADD conpot.cfg /opt/conpot/conpot.cfg
