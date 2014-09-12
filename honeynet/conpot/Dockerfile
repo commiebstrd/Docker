@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update -y
 
 #copy and build
-COPY ./install.sh ./install.sh
+ADD install.sh ./install.sh
 RUN chmod +x ./install.sh
 RUN ./install.sh
 RUN mkdir /opt/conpot/var/

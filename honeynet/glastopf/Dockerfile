@@ -11,7 +11,7 @@ RUN sudo apt-get install git lsb-release -y
 
 #copy and execute
 WORKDIR /opt
-COPY ./install.sh ./install.sh
+ADD ./install.sh ./install.sh
 RUN chmod +x ./install.sh
 RUN sudo ./install.sh
 
