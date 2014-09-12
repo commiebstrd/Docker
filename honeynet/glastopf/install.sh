@@ -20,11 +20,10 @@ sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt trusty-security main restr
 echo "Installing prereqs" | tee -a $logfile
 
 apt-get update -y 2>&1 | tee -a $logfile
-apt-get install python2.7 python-openssl python-gevent libevent-dev python2.7-dev build-essential make -y 2>&1 | tee -a $logfile
-apt-get install python-chardet python-requests python-sqlalchemy python-lxml -y 2>&1 | tee -a $logfile
-apt-get install python-beautifulsoup mongodb python-pip python-dev python-setuptools -y 2>&1 | tee -a $logfile
-apt-get install g++ git php5 php5-dev liblapack-dev gfortran libmysqlclient-dev -y 2>&1 | tee -a $logfile
-apt-get install libxml2-dev libxslt-dev -y 2>&1 | tee -a $logfile
+apt-get install python2.7 python-openssl python-gevent libevent-dev python2.7-dev build-essential make \
+python-chardet python-requests python-sqlalchemy python-lxml python-beautifulsoup mongodb python-pip \
+python-dev python-setuptools g++ git php5 php5-dev liblapack-dev gfortran libmysqlclient-dev libxml2-dev \
+libxslt-dev -y 2>&1 | tee -a $logfile
 pip install --upgrade distribute -y 2>&1 | tee -a $logfile
 
 #checout and build latest php sandbox
@@ -55,7 +54,9 @@ echo "Making glastopf environment" | tee -a $loglfile
 cd /opt
 mkdir myhoneypot
 cd myhoneypot
-#glastopf-runner 2>&1 | tee -a $logfile
+
+#Initialize config
+glastopf-runner 2>&1 | tee -a $logfile
 
 #Finished
 echo "Finished build correctly - Enjoy!" | tee -a $logfile
