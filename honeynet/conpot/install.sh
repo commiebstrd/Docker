@@ -6,7 +6,7 @@
 
 logfile="$HOME/install.log"
 
-echo "Creating new Docker container for Project .." | tee -a $logfile
+echo "Creating new Docker container for Conpot.." | tee -a $logfile
 echo $(date) | tee -a $logfile
 
 #apt-get sources
@@ -18,12 +18,14 @@ sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt trusty-security main restr
 
 #dependencies
 echo "Installing prereqs" | tee -a $logfile
-
 apt-get update -y 2>&1 | tee -a $logfile
+apt-get install libsmi2ldbl snmp-mibs-downloader
 
 #Build here
-
-
+cd /opt 2>&1 | tee -a $logfile
+git clone git@github.com:glastopf/conpot.git 2>&1 | tee -a $logfile
+cd conpot 2>&1 | tee -a $logfile
+python setup.py install 2>&1 | tee -a $logfile
 
 #Finished
 echo "Finished build correctly - Enjoy!" | tee -a $logfile
