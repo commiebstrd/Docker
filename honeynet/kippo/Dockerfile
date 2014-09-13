@@ -4,7 +4,7 @@ FROM ubuntu:latest
 
 MAINTAINER Spenser Reinhardt
 ENV DEBIAN_FRONTEND noninteractive
-ENV lofgile $HOME/install.log
+ENV logfile $HOME/install.log
 
 RUN echo "Creating new Docker container for Kippo .." | tee -a $logfile
 RUN echo $(date) | tee -a $logfile
@@ -35,7 +35,7 @@ RUN  echo "Finished build correctly - Enjoy!" | tee -a $logfile
 RUN  echo $(date) | tee -a $logfile
 
 #cleanup
-RUN mv $logfile /opt/kippo/install.log
+RUN if [[ -f $logfile ]]; then mv $logfile /opt/thug/install.log; else echo "No log, use docker's"; fi
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD kippo.cfg /opt/kippo/kippo.cfg
