@@ -92,7 +92,7 @@ RUN echo "Finished build correctly - Enjoy!" | tee -a $logfile
 RUN echo $(date) | tee -a $logfile
 
 #cleanup
-RUN mv $logfile /opt/thug/install.log
+RUN if [[ -f $logfile ]]; then mv $logfile /opt/thug/install.log; else echo "No log, use docker's"; fi
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /opt/thug/
