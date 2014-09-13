@@ -99,9 +99,9 @@ RUN make install 2>&1 | tee -a $logfile
 #finished
 RUN echo "Done making Dionaea - Enjoy!" | tee -a $logfile
 RUN echo $(date) | tee -a $logfile
-RUN mv $logfile /opt/dionaea/install.log
 
 #cleanup
+RUN if [[ -f $logfile ]]; then mv $logfile /opt/thug/install.log; else echo "No log, use docker's"; fi
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN rm -f /opt/dionaea/libpcap-1.1.1.tar.gz /opt/dionaea/Python-3.2.2/Cython-0.15.tar.gz /opt/dionaea/Python-3.2.2.tgz /opt/dionaea/libev-4.04.tar.gz 
 
