@@ -22,7 +22,7 @@ echo "Installing prereqs" | tee -a $logfile
 apt-get update -y 2>&1 | tee -a $logfile
 apt-get install subversion git-core python2.7 python2.7-dev python-pip build-essential autoconf libtool \
 subversion libboost-all-dev libboost-python-dev python-setuptools libxml2-dev libxslt-dev \
-graphviz mongodb-y 2>&1 | tee -a $logfile
+graphviz mongodb -y 2>&1 | tee -a $logfile
 
 #google-v8
 cd /tmp/
