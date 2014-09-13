@@ -19,7 +19,7 @@ sed -i '1ideb mirror://mirrors.ubuntu.com/mirrors.txt trusty-security main restr
 #dependencies
 echo "Installing prereqs" | tee -a $logfile
 apt-get update -y 2>&1 | tee -a $logfile
-apt-get install libsmi2ldbl snmp-mibs-downloader
+apt-get install libsmi2ldbl snmp-mibs-downloader -y 2>&1 | tee -a $logfile
 
 #Build here
 cd /opt 2>&1 | tee -a $logfile
