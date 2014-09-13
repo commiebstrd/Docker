@@ -38,7 +38,7 @@ RUN mv $logfile /var/log/honeybrid/install.log
 ADD honeybrid.cfg /etc/honeybrid/honeybrid.cfg
 
 #cleanup
-RUN mv /install.log /opt/honeybrid/install.log
+RUN if [[ -f $logfile ]]; then mv $logfile /opt/thug/install.log; else echo "No log, use docker's"; fi
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /install.sh
 
 EXPOSE 80 443
