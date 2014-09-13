@@ -10,10 +10,10 @@ RUN sudo apt-get update -y
 RUN sudo apt-get install git lsb-release -y
 
 #copy and execute
-WORKDIR /opt
-ADD ./install.sh ./install.sh
-RUN chmod +x ./install.sh
-RUN sudo ./install.sh
+WORKDIR /tmp
+ADD install.sh /tmp/install.sh
+RUN chmod +x /tmp/install.sh
+RUN /tmp/install.sh
 
 # Clean up when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ./install.sh
