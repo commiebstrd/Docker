@@ -12,13 +12,13 @@ RUN apt-get update -y
 ADD install.sh ./install.sh
 RUN chmod +x ./install.sh
 RUN ./install.sh
-RUN mkdir /opt/conpot/var/
+RUN mkdir -p /opt/conpot/var/
 
 #Add config
 ADD conpot.cfg /opt/conpot/conpot.cfg
 
 #cleanup
-RUN mv /install.log /opt/[project]/install.log
+RUN mv /install.log /opt/conpot/install.log
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /install.sh
 
 EXPOSE 80 161 503
