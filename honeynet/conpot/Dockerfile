@@ -35,7 +35,7 @@ RUN if [[ ! -d /opt/conpot/ ]] || [[ ! -d /opt/conpot/var/ ]]; then mkdir -p /op
 ADD conpot.cfg /opt/conpot/conpot.cfg
 
 #cleanup
-RUN mv $logfile /opt/conpot/install.log
+RUN if [[ -f $logfile ]]; then mv $logfile /opt/thug/install.log; else echo "No log, use docker's"; fi
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 80 161 503
