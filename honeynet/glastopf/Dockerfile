@@ -59,7 +59,7 @@ WORKDIR myhoneypot/
 #Finished
 RUN echo "Finished build correctly - Enjoy!" | tee -a $logfile
 RUN echo $(date) | tee -a $logfile
-RUN mv $logile /opt/glastopf/install.log
+RUN if [[ -f $logfile ]]; then mv $logfile /opt/thug/install.log; else echo "No log, use docker's"; fi
 
 # Clean up when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ./install.sh
