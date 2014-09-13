@@ -20,10 +20,10 @@ RUN apt-get install automake autoconf git-core make build-essential binutils gcc
 WORKDIR /tmp/
 RUN git clone git://git.code.sf.net/p/honeybrid/git honeybrid-git 2>&1 | tee -a $logfile
 WORKDIR honeybrid-git/
-RUN autoreconf -vi
+RUN autoreconf -vi 2>&1 | tee -a $logfile
 RUN ./configure "$@" 2>&1 | tee -a $logfile
 RUN make 2>&1 | tee -a $logfile
-RUN make install 2>&1 tee -a $logfile
+RUN make install 2>&1 | tee -a $logfile
 RUN mkdir /etc/honeybrid
 RUN mkdir /var/log/honeybrid
 RUN cp honeybrid.conf /etc/honeybrid/ 2>&1 | tee -a $logfile
